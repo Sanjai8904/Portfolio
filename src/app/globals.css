@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  DESIGN TOKENS — "Signal"
+  Dark is the default surface (site loads in dark mode).
+  [data-theme="light"] overrides every value for the light variant.
+  Values are RGB triplets (no #) so Tailwind's <alpha-value> works.
+*/
+:root {
+  --c-base: 10 12 16;            /* #0A0C10 — void */
+  --c-surface: 18 22 29;         /* #12161D */
+  --c-surface-raised: 23 28 36;  /* #171C24 */
+  --c-line: 38 44 54;            /* #262C36 */
+
+  --c-ink: 236 238 241;          /* #ECEEF1 */
+  --c-ink-muted: 148 155 168;    /* #949BA8 */
+  --c-ink-faint: 96 103 117;     /* #606775 */
+
+  --c-amber: 232 163 61;         /* #E8A33D — signal primary */
+  --c-teal: 43 169 140;          /* #2BA98C — signal secondary */
+
+  /* Ambient background — cool tones only, deliberately separate from the
+     amber/teal brand accents above so buttons/tags/waveform are untouched. */
+  --c-aurora-a: 30 64 122;       /* deep blue wash */
+  --c-aurora-b: 20 90 107;       /* slate-cyan wash */
+  --c-glow-a: 56 122 224;        /* blue glow orb */
+  --c-glow-b: 34 168 196;        /* cyan glow orb */
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --c-base: 246 245 241;         /* #F6F5F1 — paper */
+  --c-surface: 255 255 255;      /* #FFFFFF */
+  --c-surface-raised: 255 255 255;
+  --c-line: 225 223 218;         /* #E1DFDA */
+
+  --c-ink: 20 23 27;             /* #14171B */
+  --c-ink-muted: 90 96 108;      /* #5A606C */
+  --c-ink-faint: 138 143 153;    /* #8A8F99 */
+
+  --c-amber: 179 105 20;         /* #B36914 — darkened for AA on paper */
+  --c-teal: 20 122 99;           /* #147A63 — darkened for AA on paper */
+
+  /* Ambient background — softened pale tints so washes stay subtle on paper */
+  --c-aurora-a: 196 217 255;
+  --c-aurora-b: 190 232 236;
+  --c-glow-a: 150 187 255;
+  --c-glow-b: 140 214 224;
+
+  color-scheme: light;
+}
+
+* {
+  border-color: rgb(var(--c-line));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--c-base));
+  color: rgb(var(--c-ink));
+  font-feature-settings: "ss01" 1, "cv01" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: rgb(var(--c-amber) / 0.28);
+  color: rgb(var(--c-ink));
+}
+
+/* Visible, deliberate focus ring — never remove focus outlines */
+:focus-visible {
+  outline: 2px solid rgb(var(--c-amber));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Respect reduced-motion preference site-wide — this alone is sufficient
+   to neutralize the new aurora/orb keyframe animations below, since it
+   zeroes every animation/transition duration on the page. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Fine-grain static noise overlay used by AmbientBackground.
+   Pure CSS/SVG (feTurbulence), no image request, no animation. */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+[data-theme="light"] .bg-noise {
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+}
