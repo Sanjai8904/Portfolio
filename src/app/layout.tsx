@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider, themeInitScript } from "@/components/providers/ThemeProvider";
 import { SkipLink } from "@/components/ui/SkipLink";
 import { AmbientBackground } from "@/components/ui/AmbientBackground";
+import { TechnicalBackground } from "@/components/ui/TechnicalBackground";
 import { site } from "@/content/site";
 
 const display = Bricolage_Grotesque({
@@ -90,6 +91,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
         <SkipLink />
 
+        <TechnicalBackground />
         <AmbientBackground />
 
         <div className="relative z-10">
