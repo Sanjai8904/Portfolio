@@ -8,8 +8,7 @@ import { TechnicalBackground } from "@/components/ui/TechnicalBackground";
 import { site } from "@/content/site";
 
 // TODO — replace with your real production URL before deploying.
-const SITE_URL = "https://example.com";
-
+const SITE_URL = "https://portfolio-coribyb57-team-stark4.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
