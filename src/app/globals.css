@@ -9,6 +9,10 @@
   Values are RGB triplets (no #) so Tailwind's <alpha-value> works.
 */
 :root {
+  --font-display: Arial, Helvetica, sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, monospace;
+  
   --c-base: 10 12 16;            /* #0A0C10 — void */
   --c-surface: 18 22 29;         /* #12161D */
   --c-surface-raised: 23 28 36;  /* #171C24 */
@@ -61,13 +65,16 @@ html {
   scroll-behavior: smooth;
 }
 
+
 body {
   background-color: rgb(var(--c-base));
   color: rgb(var(--c-ink));
+  font-family: Arial, Helvetica, sans-serif;
   font-feature-settings: "ss01" 1, "cv01" 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
+
 
 ::selection {
   background-color: rgb(var(--c-amber) / 0.28);
